@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Opcional: Estilo extra para o corpo */
+/* No seu styles.css */
+body {
+  background-color: #020617; /* Slate 950 */
+}
+
+/* Um brilho sutil no fundo para destacar o logo */
+.bg-slate-950 {
+  background: radial-gradient(circle at top right, rgba(139, 92, 246, 0.05), transparent),
+              radial-gradient(circle at bottom left, rgba(6, 182, 212, 0.05), transparent),
+              #020617;
+}
