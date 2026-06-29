@@ -5,22 +5,7 @@
   </div>
 
   <header class="absolute top-0 right-0 p-6 z-50">
-    <div class="relative">
-      <button (click)="toggleUserMenu()"
-              class="flex items-center justify-center w-12 h-12 rounded-full border border-slate-700 bg-slate-900/50 hover:border-cyan-500 transition-all shadow-lg overflow-hidden">
-        <span class="text-cyan-400 font-bold text-sm">TS</span>
-      </button>
-
-      <div *ngIf="userMenuOpen"
-           class="absolute top-14 right-0 w-48 bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-2xl shadow-2xl p-2 py-3">
-        <button class="w-full text-left px-4 py-2 text-xs font-semibold uppercase tracking-widest text-slate-400 hover:text-cyan-400 hover:bg-slate-800/50 rounded-lg transition-all">Minha Conta</button>
-        <button class="w-full text-left px-4 py-2 text-xs font-semibold uppercase tracking-widest text-slate-400 hover:text-cyan-400 hover:bg-slate-800/50 rounded-lg transition-all">Eventos</button>
-        <button class="w-full text-left px-4 py-2 text-xs font-semibold uppercase tracking-widest text-slate-400 hover:text-cyan-400 hover:bg-slate-800/50 rounded-lg transition-all">Pontos</button>
-        <button class="w-full text-left px-4 py-2 text-xs font-semibold uppercase tracking-widest text-slate-400 hover:text-cyan-400 hover:bg-slate-800/50 rounded-lg transition-all">Projetos</button>
-        <hr class="my-2 border-slate-800">
-        <button class="w-full text-left px-4 py-2 text-xs font-semibold uppercase tracking-widest text-red-500 hover:bg-red-500/10 rounded-lg transition-all">Sair</button>
-      </div>
-    </div>
+    <app-user-menu />
   </header>
 
   <main class="flex flex-col items-center justify-center min-h-screen px-4">

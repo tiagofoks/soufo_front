@@ -1,0 +1,236 @@
+<div class="min-h-screen bg-slate-950 text-slate-200 relative overflow-hidden font-sans">
+
+  <div class="absolute -top-10 -left-10 w-64 h-64 opacity-15 pointer-events-none animate-pulse z-0">
+    <img src="assets/selo-soufo.png" alt="" class="w-full h-full object-contain" aria-hidden="true">
+  </div>
+
+  <header class="absolute top-0 right-0 p-6 z-50">
+    <app-user-menu />
+  </header>
+
+  <main class="relative z-10 max-w-6xl mx-auto px-4 py-24 sm:py-28">
+    <nav aria-label="Breadcrumb" class="mb-8">
+      <ol class="flex items-center gap-2 text-xs uppercase tracking-widest text-slate-500">
+        <li>
+          <a routerLink="/home" class="hover:text-cyan-400 transition-colors">Início</a>
+        </li>
+        <li aria-hidden="true">/</li>
+        <li class="text-cyan-400 font-semibold" aria-current="page">Minha Conta</li>
+      </ol>
+    </nav>
+
+    <div class="mb-10">
+      <p class="text-slate-400 uppercase tracking-[0.4em] text-xs font-medium mb-3">Meu perfil</p>
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-100 tracking-tighter mb-3">
+        Minha Conta
+      </h1>
+      <p class="text-slate-500 text-sm max-w-2xl">
+        Gerencie suas informações pessoais, links profissionais e preferências da conta Soufo.
+      </p>
+    </div>
+
+    <div class="grid gap-8 lg:grid-cols-[280px_1fr]">
+      <aside class="space-y-6">
+        <section class="bg-slate-900/40 border border-slate-800 rounded-3xl p-6 text-center shadow-2xl shadow-slate-950/20">
+          <div
+            class="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-full border-2 border-cyan-500/40 bg-gradient-to-br from-violet-600/30 to-cyan-500/30 text-2xl font-bold text-cyan-300"
+            aria-hidden="true"
+          >
+            {{ initials() }}
+          </div>
+          <h2 class="text-lg font-bold text-slate-100">
+            {{ profileForm.get('firstName')?.value }} {{ profileForm.get('lastName')?.value }}
+          </h2>
+          <p class="mt-1 text-sm text-slate-500 break-all">{{ userEmail() }}</p>
+          <p class="mt-4 text-[10px] uppercase tracking-widest text-slate-600">Membro Soufo</p>
+        </section>
+
+        <section class="bg-slate-900/40 border border-slate-800 rounded-3xl p-5 shadow-2xl shadow-slate-950/20">
+          <h3 class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-4">Resumo</h3>
+          <dl class="space-y-3 text-sm">
+            <div class="flex items-center justify-between">
+              <dt class="text-slate-500">Eventos</dt>
+              <dd class="font-semibold text-cyan-400">0</dd>
+            </div>
+            <div class="flex items-center justify-between">
+              <dt class="text-slate-500">Pontos</dt>
+              <dd class="font-semibold text-cyan-400">0</dd>
+            </div>
+            <div class="flex items-center justify-between">
+              <dt class="text-slate-500">Projetos</dt>
+              <dd class="font-semibold text-cyan-400">0</dd>
+            </div>
+          </dl>
+        </section>
+      </aside>
+
+      <div class="space-y-6">
+        <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="space-y-6">
+          <section class="bg-slate-900/40 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl shadow-slate-950/20">
+            <div class="mb-6 border-b border-slate-800 pb-4">
+              <h2 class="text-xl font-bold text-slate-100">Informações pessoais</h2>
+              <p class="text-sm text-slate-500 mt-1">Dados básicos exibidos no seu perfil público.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div class="space-y-1">
+                <label for="firstName" class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Nome</label>
+                <input
+                  id="firstName"
+                  formControlName="firstName"
+                  type="text"
+                  autocomplete="given-name"
+                  class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-200 outline-none focus:ring-2 focus:ring-cyan-500/50"
+                >
+                @if (profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched) {
+                  <p class="text-[10px] text-red-400 font-bold uppercase tracking-tight ml-1">Nome é obrigatório.</p>
+                }
+              </div>
+
+              <div class="space-y-1">
+                <label for="lastName" class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Sobrenome</label>
+                <input
+                  id="lastName"
+                  formControlName="lastName"
+                  type="text"
+                  autocomplete="family-name"
+                  class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-200 outline-none focus:ring-2 focus:ring-cyan-500/50"
+                >
+                @if (profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched) {
+                  <p class="text-[10px] text-red-400 font-bold uppercase tracking-tight ml-1">Sobrenome é obrigatório.</p>
+                }
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+              <div class="space-y-1">
+                <label for="email" class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">E-mail</label>
+                <input
+                  id="email"
+                  formControlName="email"
+                  type="email"
+                  autocomplete="email"
+                  class="w-full bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-3 text-slate-500 outline-none cursor-not-allowed"
+                >
+                <p class="text-[10px] text-slate-600 ml-1">O e-mail não pode ser alterado aqui.</p>
+              </div>
+
+              <div class="space-y-1">
+                <label for="phone" class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Telefone</label>
+                <input
+                  id="phone"
+                  formControlName="phone"
+                  type="tel"
+                  autocomplete="tel"
+                  placeholder="(15) 99999-9999"
+                  class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-200 outline-none focus:ring-2 focus:ring-cyan-500/50"
+                >
+              </div>
+            </div>
+
+            <div class="space-y-1 mt-6">
+              <label for="location" class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Localização</label>
+              <input
+                id="location"
+                formControlName="location"
+                type="text"
+                autocomplete="address-level2"
+                placeholder="Cidade, Estado"
+                class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-200 outline-none focus:ring-2 focus:ring-cyan-500/50"
+              >
+            </div>
+
+            <div class="space-y-1 mt-6">
+              <label for="bio" class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Bio</label>
+              <textarea
+                id="bio"
+                formControlName="bio"
+                rows="4"
+                maxlength="280"
+                placeholder="Conte um pouco sobre você, suas skills e interesses..."
+                class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-200 outline-none focus:ring-2 focus:ring-cyan-500/50 resize-y min-h-[120px]"
+              ></textarea>
+              <p class="text-[10px] text-slate-600 ml-1">{{ profileForm.get('bio')?.value?.length || 0 }}/280</p>
+            </div>
+          </section>
+
+          <section class="bg-slate-900/40 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl shadow-slate-950/20">
+            <div class="mb-6 border-b border-slate-800 pb-4">
+              <h2 class="text-xl font-bold text-slate-100">Links profissionais</h2>
+              <p class="text-sm text-slate-500 mt-1">Conecte seus perfis para enriquecer seu talent profile.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div class="space-y-1">
+                <label for="github" class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">GitHub</label>
+                <input
+                  id="github"
+                  formControlName="github"
+                  type="url"
+                  placeholder="https://github.com/seu-usuario"
+                  class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-200 outline-none focus:ring-2 focus:ring-cyan-500/50"
+                >
+              </div>
+
+              <div class="space-y-1">
+                <label for="linkedin" class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">LinkedIn</label>
+                <input
+                  id="linkedin"
+                  formControlName="linkedin"
+                  type="url"
+                  placeholder="https://linkedin.com/in/seu-perfil"
+                  class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-200 outline-none focus:ring-2 focus:ring-cyan-500/50"
+                >
+              </div>
+            </div>
+          </section>
+
+          <section class="bg-slate-900/40 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl shadow-slate-950/20">
+            <div class="mb-6 border-b border-slate-800 pb-4">
+              <h2 class="text-xl font-bold text-slate-100">Segurança</h2>
+              <p class="text-sm text-slate-500 mt-1">Proteja o acesso à sua conta Soufo.</p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div>
+                <p class="text-sm font-semibold text-slate-200">Senha</p>
+                <p class="text-xs text-slate-500 mt-1">Altere sua senha periodicamente para manter a conta segura.</p>
+              </div>
+              <button
+                type="button"
+                (click)="goToChangePassword()"
+                class="px-5 py-3 border border-slate-700 text-slate-300 font-bold rounded-xl hover:bg-slate-800 transition-all uppercase text-xs tracking-widest"
+              >
+                Alterar senha
+              </button>
+            </div>
+          </section>
+
+          @if (saveMessage()) {
+            <p role="status" class="text-sm font-semibold text-emerald-400">{{ saveMessage() }}</p>
+          }
+
+          @if (saveError()) {
+            <p role="alert" class="text-sm font-semibold text-red-400">{{ saveError() }}</p>
+          }
+
+          <div class="flex flex-col sm:flex-row gap-4 pt-2">
+            <a
+              routerLink="/home"
+              class="flex-1 px-6 py-3 border border-slate-700 text-slate-400 font-bold rounded-xl hover:bg-slate-800 transition-all uppercase text-xs tracking-widest text-center"
+            >
+              Voltar
+            </a>
+            <button
+              type="submit"
+              [disabled]="profileForm.invalid || isSaving()"
+              class="flex-1 px-6 py-3 bg-gradient-to-r from-violet-600 to-cyan-500 text-white font-bold rounded-xl transition-all uppercase text-xs tracking-widest shadow-lg disabled:opacity-30 disabled:grayscale disabled:cursor-not-allowed"
+            >
+              {{ isSaving() ? 'Salvando...' : 'Salvar alterações' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>

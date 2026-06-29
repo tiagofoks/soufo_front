@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, AbstractControl, ValidationErrors, ValidatorFn, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService, AuthResponse } from '../../services/user';
 
-// Validador de comparação de senhas
 export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const senha = control.get('senha');
   const confirmarSenha = control.get('confirmarSenha');
@@ -71,9 +70,7 @@ export class SignupComponent {
       return;
     }
 
-    this.userService.setUserName(`${response.firstName} ${response.lastName}`);
-    this.userService.setUserEmail(response.email);
-    this.userService.setAuthToken(response.token);
+    this.userService.setProfileFromAuth(response, payload.telefone);
     this.router.navigate(['/home']);
   }
 }

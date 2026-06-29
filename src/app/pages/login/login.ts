@@ -40,9 +40,7 @@ export class LoginComponent {
       return;
     }
 
-    this.userService.setUserName(`${result.firstName} ${result.lastName}`);
-    this.userService.setUserEmail(result.email);
-    this.userService.setAuthToken(result.token);
+    this.userService.setProfileFromAuth(result);
     this.router.navigate(['/home']);
   }
 

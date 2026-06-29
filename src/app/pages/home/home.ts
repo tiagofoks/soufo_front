@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { UserService } from '../../services/user';
+import { UserMenuComponent } from '../../components/user-menu/user-menu';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, UserMenuComponent],
   templateUrl: './home.html',
   styleUrls: ['./home.css']
 })
 export class HomeComponent implements OnInit {
-  userMenuOpen = false;
   eventModalOpen = false;
   eventForm: FormGroup;
   minDate: string = new Date().toISOString().split('T')[0];
@@ -79,10 +79,6 @@ export class HomeComponent implements OnInit {
 
       return dataInput < hoje ? { pastDate: true } : null;
     };
-  }
-
-  toggleUserMenu() {
-    this.userMenuOpen = !this.userMenuOpen;
   }
 
   toggleEventModal() {
